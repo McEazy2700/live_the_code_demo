@@ -8,7 +8,7 @@ use context::AppContext;
 use graphql::schema::build_schema;
 use routes::graphql::{execute, playground};
 use dotenv::dotenv;
-use migration::config::DB;
+use migration::{config::DB, Migrator, MigratorTrait};
 pub mod graphql;
 pub mod routes;
 pub mod context;
@@ -24,7 +24,10 @@ async fn hello(path: Path<String>, req: HttpRequest) -> HttpResponse {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
+    
     let conn = DB::init().connect().await.expect("Datbase Connection Failed");
+    Migrator::up(&conn, None).await;
+    
     let context = AppContext::new(conn);
     let schema = build_schema(context);
     HttpServer::new(move || {
