@@ -26,7 +26,7 @@ async fn main() -> std::io::Result<()> {
     dotenv().ok();
     
     let conn = DB::init().connect().await.expect("Datbase Connection Failed");
-    Migrator::up(&conn, None).await;
+    Migrator::up(&conn, None).await?;
     
     let context = AppContext::new(conn);
     let schema = build_schema(context);
