@@ -33,6 +33,8 @@ async fn main() -> std::io::Result<()> {
     // build AppContext and Graphql Schema
     let context = AppContext::new(conn);
     let schema = build_schema(context);
+    let url = build_url();
+    println!("Server started on {url}");
     HttpServer::new(move || {
         App::new()
             .app_data(Data::new(schema.clone()))
@@ -40,7 +42,7 @@ async fn main() -> std::io::Result<()> {
             .service(playground)
             .service(execute)
     })
-    .bind(build_url())?
+    .bind(url)?
     .run()
     .await
 }
