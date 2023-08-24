@@ -9,16 +9,21 @@ name = "migration"
 path = "src/lib.rs"
 
 [dependencies]
-async-std = { version = "1", features = ["attributes", "tokio1"] }
 chrono = "0.4.26"
-sea-orm = "0.12.2"
+sea-orm = { version = "0.12" }
+async-std = { version = "1", features = ["attributes", "tokio1"] }
+
+[dependencies.uuid]
+version = "1.4.1"
+features = [
+    "v4",                # Lets you generate random UUIDs
+    "fast-rng",          # Use a faster (but still sufficiently random) RNG
+    "macro-diagnostics", # Enable better diagnostics for compile-time UUIDs
+]
 
 [dependencies.sea-orm-migration]
-version = "0.11.0"
+version = "0.12.0"
 features = [
-  # Enable at least one `ASYNC_RUNTIME` and `DATABASE_DRIVER` feature if you want to run migration via CLI.
-  # View the list of supported features at https://www.sea-ql.org/SeaORM/docs/install-and-config/database-and-async-runtime.
-  # e.g.
-  "runtime-tokio-rustls",  # `ASYNC_RUNTIME` feature
-  "sqlx-postgres",         # `DATABASE_DRIVER` feature
+  "runtime-tokio-rustls",
+  "sqlx-postgres",
 ]

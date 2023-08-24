@@ -1,6 +1,6 @@
 use std::env::var;
 
-use sea_orm::{Database, DbErr, DatabaseConnection};
+use sea_orm_migration::sea_orm::{Database, DbErr, DatabaseConnection};
 
 pub struct DB {
     name: String,

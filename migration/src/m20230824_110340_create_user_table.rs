@@ -1,3 +1,4 @@
+use chrono::Utc;
 use sea_orm_migration::prelude::*;
 
 #[derive(DeriveMigrationName)]
@@ -18,6 +19,10 @@ impl MigrationTrait for Migration {
                      .string()
                      .not_null()
                      .unique_key())
+                .col(ColumnDef::new(User::DateAdded)
+                     .date_time()
+                     .not_null()
+                    .default(Value::ChronoDateTimeUtc(Some(Box::new(Utc::now())))))
             .to_owned()
         ).await
     }
