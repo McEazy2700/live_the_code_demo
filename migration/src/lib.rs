@@ -3,6 +3,7 @@ pub mod config;
 
 mod m20230824_110340_create_user_table;
 mod m20230824_220114_create_image_table;
+mod m20230825_171205_alter_image_add_public_id;
 
 pub struct Migrator;
 
@@ -12,6 +13,7 @@ impl MigratorTrait for Migrator {
         vec![
             Box::new(m20230824_110340_create_user_table::Migration),
             Box::new(m20230824_220114_create_image_table::Migration),
+            Box::new(m20230825_171205_alter_image_add_public_id::Migration),
         ]
     }
 }

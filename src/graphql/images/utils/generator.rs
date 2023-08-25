@@ -8,7 +8,7 @@ use std::env::var;
 
 use super::{
     ai_models::AIModel,
-    types::{GeneratedImage, ImageSize},
+    super::types::{GeneratedImage, ImageSize},
 };
 
 #[derive(Deserialize, Serialize, Debug)]

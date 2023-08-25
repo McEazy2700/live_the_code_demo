@@ -1,8 +1,8 @@
 use crate::graphql::users::auth::utils::ensure_auth;
-use crate::{context::AppContext, graphql::images::generator::Generator};
+use crate::context::AppContext;
 use async_graphql::*;
 
-use super::db_manager::ImageManger;
+use super::utils::{db_manager::ImageManger, generator::Generator};
 use super::types::{GeneratedImage, Image, ImageGenerationInput};
 
 #[derive(Default)]

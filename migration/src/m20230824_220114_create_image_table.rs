@@ -58,4 +58,5 @@ pub enum Image {
     Model,
     DateAdded,
     UserId,
+    PublicId
 }

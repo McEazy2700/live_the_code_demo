@@ -1526,6 +1526,7 @@ name = "graphql_server"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "anyhow",
  "async-graphql",
  "async-graphql-actix-web",
  "cloudinary",

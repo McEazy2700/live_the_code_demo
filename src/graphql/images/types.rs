@@ -1,7 +1,7 @@
 use async_graphql::*;
 use entity::entities::image;
 
-use super::ai_models::{AIModel, ImageModels};
+use super::utils::ai_models::{AIModel, ImageModels};
 
 #[derive(SimpleObject, InputObject)]
 #[graphql(input_name = "SaveGeneratedImageInput")]
