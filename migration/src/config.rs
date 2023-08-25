@@ -1,4 +1,4 @@
-use std::env::var;
+use std::{env::var, process::Command};
 
 use sea_orm_migration::sea_orm::{Database, DbErr, DatabaseConnection};
 
@@ -28,6 +28,21 @@ impl DB {
         let port = &self.port;
         let name = &self.name;
         format!("postgresql://{user}:{pswd}@{host}:{port}/{name}")
+    }
+
+    pub fn generate_entities(&self) -> &Self {
+        println!("Generating database entities");
+        let url = self.url();
+        let out_dir = format!("entity/src/entities");
+        let command = format!("/home/Vice/.cargo/bin/sea-orm-cli generate entity -u {url} -o {out_dir}");
+        println!("{command}");
+        
+        
+        Command::new(command)
+            .status()
+            .expect("Entity Generation");
+        println!("Generated database entities");
+       self
     }
 
     pub async fn connect(&self) -> Result<DatabaseConnection, DbErr> {

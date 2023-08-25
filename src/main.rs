@@ -1,6 +1,7 @@
 use std::env::var;
 use actix_web::{
     get,
+    middleware::Logger,
     web::{Data, Path},
     App, HttpRequest, HttpResponse, HttpServer,
 };
@@ -10,6 +11,7 @@ use graphql::schema::build_schema;
 use routes::graphql::{execute, playground};
 use dotenv::dotenv;
 use migration::{config::DB, Migrator, MigratorTrait};
+// use env_logger::Env;
 pub mod graphql;
 pub mod routes;
 pub mod context;
@@ -24,10 +26,13 @@ async fn hello(path: Path<String>, req: HttpRequest) -> HttpResponse {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    env_logger::init();
+    // env_logger::Builder::from_env(Env::default().default_filter_or("info"));
     dotenv().ok();
     
     // Connect to database and migrate
-    let conn = DB::init().connect().await.expect("Datbase Connection Failed");
+    let db = DB::init();
+    let conn = db.connect().await.expect("Datbase Connection Failed");
     Migrator::up(&conn, None).await.expect("Migration failed");
     
     // build AppContext and Graphql Schema
@@ -37,6 +42,7 @@ async fn main() -> std::io::Result<()> {
     println!("Server started on {url}");
     HttpServer::new(move || {
         App::new()
+            .wrap(Logger::default())
             .app_data(Data::new(schema.clone()))
             .service(hello)
             .service(playground)

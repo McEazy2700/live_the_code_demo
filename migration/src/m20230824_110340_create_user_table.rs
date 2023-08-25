@@ -7,6 +7,7 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
+        let default_date_added = Some(Box::new(Utc::now()));
         manager.create_table(
             Table::create().table(User::Table)
                 .if_not_exists()
@@ -22,7 +23,7 @@ impl MigrationTrait for Migration {
                 .col(ColumnDef::new(User::DateAdded)
                      .date_time()
                      .not_null()
-                    .default(Value::ChronoDateTimeUtc(Some(Box::new(Utc::now())))))
+                    .default(Value::ChronoDateTimeUtc(default_date_added)))
             .to_owned()
         ).await
     }

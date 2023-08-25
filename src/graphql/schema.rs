@@ -2,9 +2,13 @@ use async_graphql::*;
 
 use crate::context::AppContext;
 
-use super::users::types::User;
+use super::{users::types::User, images::mutations::ImageMutations};
 
 pub struct Query;
+
+
+#[derive(MergedObject, Default)]
+pub struct Mutation(ImageMutations);
 
 #[Object]
 impl Query {
@@ -21,10 +25,10 @@ impl Query {
     }
 }
 
-pub type AppSchema = Schema<Query, EmptyMutation, EmptySubscription>;
+pub type AppSchema = Schema<Query, Mutation, EmptySubscription>;
 
 pub fn build_schema(context: AppContext) -> AppSchema {
-    AppSchema::build(Query, EmptyMutation, EmptySubscription)
+    AppSchema::build(Query, Mutation::default(), EmptySubscription)
         .data(context)
         .finish()
 }
