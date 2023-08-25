@@ -128,7 +128,7 @@ impl Generator {
                 }
                 Ok(generated)
             },
-            Err(err) => Err(format!("Generation Error: {err}")),
+            Err(err) => Err(err),
         }
     }
 }
