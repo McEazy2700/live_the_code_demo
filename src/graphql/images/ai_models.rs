@@ -10,8 +10,8 @@ impl Default for AIModel {
     }
 }
 
-pub struct ImageModels;
 
+pub struct ImageModels;
 
 impl ImageModels {
     pub fn sdlx() -> AIModel {
