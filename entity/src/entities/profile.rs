@@ -3,36 +3,41 @@
 use sea_orm::entity::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
-#[sea_orm(table_name = "image")]
+#[sea_orm(table_name = "profile")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
-    pub title: Option<String>,
-    pub url: String,
-    pub model: Option<String>,
-    pub date_added: DateTime,
-    pub user_id: Option<i32>,
     #[sea_orm(unique)]
-    pub public_id: Option<String>,
+    pub user_id: i32,
+    #[sea_orm(unique)]
+    pub user_name: Option<String>,
+    pub bio: Option<String>,
+    pub image_id: Option<i32>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_many = "super::profile::Entity")]
-    Profile,
+    #[sea_orm(
+        belongs_to = "super::image::Entity",
+        from = "Column::ImageId",
+        to = "super::image::Column::Id",
+        on_update = "Cascade",
+        on_delete = "NoAction"
+    )]
+    Image,
     #[sea_orm(
         belongs_to = "super::user::Entity",
         from = "Column::UserId",
         to = "super::user::Column::Id",
         on_update = "Cascade",
-        on_delete = "SetNull"
+        on_delete = "Cascade"
     )]
     User,
 }
 
-impl Related<super::profile::Entity> for Entity {
+impl Related<super::image::Entity> for Entity {
     fn to() -> RelationDef {
-        Relation::Profile.def()
+        Relation::Image.def()
     }
 }
 

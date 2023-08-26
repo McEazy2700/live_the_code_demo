@@ -7,8 +7,8 @@ use serde::{Deserialize, Serialize};
 use std::env::var;
 
 use super::{
-    ai_models::AIModel,
     super::types::{GeneratedImage, ImageSize},
+    ai_models::AIModel,
 };
 
 #[derive(Deserialize, Serialize, Debug)]

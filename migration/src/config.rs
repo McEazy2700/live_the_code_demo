@@ -1,6 +1,6 @@
 use std::{env::var, process::Command};
 
-use sea_orm_migration::sea_orm::{Database, DbErr, DatabaseConnection};
+use sea_orm_migration::sea_orm::{Database, DatabaseConnection, DbErr};
 
 pub struct DB {
     name: String,
@@ -17,7 +17,7 @@ impl DB {
             user: var("PGUSER").expect(fmt_err("PGUSER").as_str()),
             host: var("PGHOST").expect(fmt_err("PGHOST").as_str()),
             port: var("PGPORT").expect(fmt_err("PGPORT").as_str()),
-            password: var("PGPASSWORD").expect(fmt_err("PGPASSWORD").as_str())
+            password: var("PGPASSWORD").expect(fmt_err("PGPASSWORD").as_str()),
         }
     }
 
@@ -34,21 +34,19 @@ impl DB {
         println!("Generating database entities");
         let url = self.url();
         let out_dir = format!("entity/src/entities");
-        let command = format!("/home/Vice/.cargo/bin/sea-orm-cli generate entity -u {url} -o {out_dir}");
+        let command =
+            format!("/home/Vice/.cargo/bin/sea-orm-cli generate entity -u {url} -o {out_dir}");
         println!("{command}");
-        
-        
-        Command::new(command)
-            .status()
-            .expect("Entity Generation");
+
+        Command::new(command).status().expect("Entity Generation");
         println!("Generated database entities");
-       self
+        self
     }
 
     pub async fn connect(&self) -> Result<DatabaseConnection, DbErr> {
         let url = self.url();
         let connection = Database::connect(url).await;
-        return connection
+        return connection;
     }
 }
 

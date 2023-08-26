@@ -39,6 +39,19 @@ pub struct Image {
     pub model: Option<String>,
 }
 
+impl From<image::Model> for Image {
+    fn from(value: image::Model) -> Self {
+        Self {
+            id: value.id,
+            title: value.title.clone(),
+            url: value.url.clone(),
+            date_added: value.date_added.to_string(),
+            user_id: value.user_id,
+            model: value.model.clone(),
+        }
+    }
+}
+
 impl From<&image::Model> for Image {
     fn from(value: &image::Model) -> Self {
         Self {

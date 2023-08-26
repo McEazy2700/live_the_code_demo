@@ -2,13 +2,15 @@ use async_graphql::*;
 
 use crate::context::AppContext;
 
-use super::{users::types::User, images::mutations::ImageMutations};
+use super::{
+    images::mutations::ImageMutations,
+    users::{mutations::UserMutations, types::User},
+};
 
 pub struct Query;
 
-
 #[derive(MergedObject, Default)]
-pub struct Mutation(ImageMutations);
+pub struct Mutation(UserMutations, ImageMutations);
 
 #[Object]
 impl Query {

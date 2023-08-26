@@ -16,11 +16,19 @@ pub struct Model {
 pub enum Relation {
     #[sea_orm(has_many = "super::image::Entity")]
     Image,
+    #[sea_orm(has_one = "super::profile::Entity")]
+    Profile,
 }
 
 impl Related<super::image::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::Image.def()
+    }
+}
+
+impl Related<super::profile::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Profile.def()
     }
 }
 

@@ -2,7 +2,7 @@ use sea_orm_migration::sea_orm::DatabaseConnection;
 
 #[derive(Debug)]
 pub struct AppContext {
-    pub db: DatabaseConnection
+    pub db: DatabaseConnection,
 }
 
 impl AppContext {
