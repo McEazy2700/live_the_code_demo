@@ -33,7 +33,10 @@ impl ImageManger {
     ) -> Result<Vec<image::Model>, Error> {
         let mut new_images: Vec<image::Model> = vec![];
         for image in image_data {
-            new_images.push(ImageManger::insert_generated(db, image, user_id).await?)
+            new_images.push(
+                ImageManger::insert_generated(db, image, user_id)
+                .await?
+            )
         }
         Ok(new_images)
     }

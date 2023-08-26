@@ -17,16 +17,20 @@ impl Uploader {
         return Self { client: uploader }
     }
 
-    pub async fn upload_image(&self, image: String, public_id: Option<String>) -> Result<Box<Response>, Error> {
+    pub async fn upload_image(&self, image_url: String, public_id: Option<String>) -> Result<Box<Response>, Error> {
         let options = UploadOptions::new();
         let options = if let Some(public_id) = public_id {
             options.set_public_id(public_id)
         } else {
             options
         };
-        let response = self.client.upload_image(image, &options).await?;
+
+        let response = self.client
+            .upload_image_from_url(image_url.clone(), &options)
+            .await?;
+        
         let response = match response {
-            UploadResult::Succes(val) => Ok(val),
+            UploadResult::Success(val) => Ok(val),
             UploadResult::Error(err) => Err(Error::new(err.error.message))
         };
         return response

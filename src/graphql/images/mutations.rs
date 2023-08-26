@@ -32,8 +32,11 @@ impl ImageMutations {
         images: Vec<GeneratedImage>,
     ) -> Result<Vec<Image>, Error> {
         let db = &cx.data::<AppContext>()?.db;
+        println!("Trying to insert images");
         let user = ensure_auth(cx)?;
+        println!("Trying to insert images");
         let saved = ImageManger::insert_many_generated(db, images, Some(user.id)).await?;
+        println!("Inserted imags");
         let mut images: Vec<Image> = vec![];
         saved.iter().for_each(|img| images.push(img.into()));
         Ok(images)
