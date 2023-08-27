@@ -4,6 +4,7 @@ use actix_web::{
     web::{Data, Path},
     App, HttpRequest, HttpResponse, HttpServer,
 };
+use actix_cors::Cors;
 use std::env::var;
 
 use context::AppContext;
@@ -41,7 +42,9 @@ async fn main() -> std::io::Result<()> {
     let url = build_url();
     println!("Server started on {url}");
     HttpServer::new(move || {
+        let cors = Cors::default().allow_any_origin();
         App::new()
+            .wrap(cors)
             .wrap(Logger::default())
             .app_data(Data::new(schema.clone()))
             .service(hello)
