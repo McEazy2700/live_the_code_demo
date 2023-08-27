@@ -13,7 +13,7 @@ publish = false
 [dependencies]
 migration = { path = "migration" }
 entity = { path = "entity" }
-cloudinary = { path = "./cloudinary" }
+cloudinary = { path = "cloudinary" }
 actix-web = "4.3.1"
 async-graphql = "6.0.4"
 async-graphql-actix-web = "6.0.4"
