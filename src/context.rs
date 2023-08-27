@@ -1,6 +1,6 @@
 use sea_orm_migration::sea_orm::DatabaseConnection;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct AppContext {
     pub db: DatabaseConnection,
 }

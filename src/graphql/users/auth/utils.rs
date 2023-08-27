@@ -43,7 +43,7 @@ pub fn generate_token(user: &User) -> Result<String, Error> {
     Ok(token)
 }
 
-pub fn decode_token(token: String) -> Result<TokenData<JWTClaims>, Error> {
+pub fn decode_token(token: String) -> Result<TokenData<JWTClaims>> {
     let secret = var("SECRET").expect("SECRET");
     let validation = Validation::new(Algorithm::HS256);
     let token = decode::<JWTClaims>(

@@ -17,8 +17,7 @@ async fn execute(
     req: HttpRequest,
     gql: GraphQLRequest,
 ) -> Result<GraphQLResponse> {
-    let headers = req.headers();
-    let user = get_user_from_headers(headers)?;
+    let user = get_user_from_headers(&req).await?;
     let request = gql.into_inner().data(user);
     Ok(schema.execute(request).await.into())
 }

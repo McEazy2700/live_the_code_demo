@@ -12,7 +12,6 @@ use dotenv::dotenv;
 use graphql::schema::build_schema;
 use migration::{config::DB, Migrator, MigratorTrait};
 use routes::graphql::{execute, playground};
-// use env_logger::Env;
 pub mod context;
 pub mod graphql;
 pub mod routes;
@@ -38,7 +37,7 @@ async fn main() -> std::io::Result<()> {
 
     // build AppContext and Graphql Schema
     let context = AppContext::new(conn);
-    let schema = build_schema(context);
+    let schema = build_schema(context.clone());
     let url = build_url();
     println!("Server started on {url}");
     HttpServer::new(move || {
@@ -47,6 +46,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(cors)
             .wrap(Logger::default())
             .app_data(Data::new(schema.clone()))
+            .app_data(Data::new(context.clone()))
             .service(hello)
             .service(playground)
             .service(execute)
