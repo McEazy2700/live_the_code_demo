@@ -1,5 +1,5 @@
 [workspace]
-members = [".", "migration", "entity"]
+members = [".", "migration", "entity", "cloudinary-rs"]
 
 [package]
 name = "graphql_server"
@@ -13,7 +13,7 @@ publish = false
 [dependencies]
 migration = { path = "migration" }
 entity = { path = "entity" }
-cloudinary = { path = "./cloudinary" }
+cloudinary-rs = { path = "./cloudinary-rs" }
 actix-web = "4.3.1"
 async-graphql = "6.0.4"
 async-graphql-actix-web = "6.0.4"
@@ -25,7 +25,3 @@ sea-orm-migration = "0.12.2"
 reqwest = { version = "0.11.20", features = ["json", "blocking"] }
 env_logger = "0.10.0"
 anyhow = "1.0.75"
-
-
-[patch.crates-io]
-cloudinary = { path = "./cloudinary" }

@@ -1,6 +1,6 @@
 use anyhow::Result;
 use async_graphql::Error;
-use cloudinary::{
+use cloudinary_rs::{
     upload::{
         result::{Response, UploadResult},
         UploadOptions,
