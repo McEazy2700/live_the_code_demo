@@ -20,3 +20,11 @@ pub struct GoogleTokenInfo {
     pub kid: String,
     pub typ: String,
 }
+
+#[derive(Serialize, Deserialize)]
+pub struct JWTClaims {
+    pub id: i32,
+    pub exp: usize,
+    pub iat: usize,
+    pub iss: String,
+}

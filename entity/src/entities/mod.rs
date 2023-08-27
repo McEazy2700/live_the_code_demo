@@ -4,4 +4,5 @@ pub mod prelude;
 
 pub mod image;
 pub mod profile;
+pub mod token;
 pub mod user;

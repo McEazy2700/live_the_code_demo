@@ -18,6 +18,8 @@ pub enum Relation {
     Image,
     #[sea_orm(has_one = "super::profile::Entity")]
     Profile,
+    #[sea_orm(has_one = "super::token::Entity")]
+    Token,
 }
 
 impl Related<super::image::Entity> for Entity {
@@ -29,6 +31,12 @@ impl Related<super::image::Entity> for Entity {
 impl Related<super::profile::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::Profile.def()
+    }
+}
+
+impl Related<super::token::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Token.def()
     }
 }
 

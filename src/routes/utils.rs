@@ -1,4 +1,4 @@
-use crate::graphql::users::types::User;
+use crate::graphql::users::types::user::User;
 use actix_web::{
     error,
     http::header::{ContentType, HeaderMap, AUTHORIZATION},

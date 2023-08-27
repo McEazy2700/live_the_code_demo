@@ -5,6 +5,7 @@ mod m20230824_110340_create_user_table;
 mod m20230824_220114_create_image_table;
 mod m20230825_171205_alter_image_add_public_id;
 mod m20230826_123626_create_profile_table;
+mod m20230827_102253_create_token_table;
 
 pub struct Migrator;
 
@@ -16,6 +17,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20230824_220114_create_image_table::Migration),
             Box::new(m20230825_171205_alter_image_add_public_id::Migration),
             Box::new(m20230826_123626_create_profile_table::Migration),
+            Box::new(m20230827_102253_create_token_table::Migration),
         ]
     }
 }

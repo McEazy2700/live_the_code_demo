@@ -4,7 +4,7 @@ use crate::context::AppContext;
 
 use super::{
     images::mutations::ImageMutations,
-    users::{mutations::UserMutations, types::User},
+    users::{mutations::UserMutations, types::user::User},
 };
 
 pub struct Query;

@@ -2,4 +2,5 @@
 
 pub use super::image::Entity as Image;
 pub use super::profile::Entity as Profile;
+pub use super::token::Entity as Token;
 pub use super::user::Entity as User;
