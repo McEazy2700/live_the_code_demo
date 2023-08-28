@@ -41,7 +41,9 @@ async fn main() -> std::io::Result<()> {
     let url = build_url();
     println!("Server started on {url}");
     HttpServer::new(move || {
-        let cors = Cors::default().allow_any_origin();
+        let cors = Cors::default()
+            .allow_any_origin()
+            .allow_any_header();
         App::new()
             .wrap(cors)
             .wrap(Logger::default())
